@@ -13,13 +13,17 @@ import (
 
 type Router struct {
 	cfg config.Config
-	mux *runtime.ServeMux
 }
 
 func NewRouter(cfg config.Config) Router {
 	return Router{
 		cfg: cfg,
 	}
+}
+
+type HTTPError struct {
+	Code    int32  `json:"code"`
+	Message string `json:"message"`
 }
 
 func (r Router) Listen() {
@@ -42,5 +46,4 @@ func (r Router) Listen() {
 func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts ...grpc.DialOption) {
 	newsService := service.NewNewsService(r.cfg)
 	newsService.RegisterNewsService(ctx, mux, opts...)
-
 }
