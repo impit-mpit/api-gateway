@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: grpc-gateway-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /v1/$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
@@ -15,14 +15,14 @@ spec:
   - host: nmost.site
     http:
       paths:
-      - path: /api/v1/news
+      - path: /api(/v1/news.*)
         pathType: Prefix
         backend:
           service:
             name: grpc-gateway
             port:
               number: 80
-      - path: /api/v1/auth
+      - path: /api(/v1/auth.*)
         pathType: Prefix
         backend:
           service:
