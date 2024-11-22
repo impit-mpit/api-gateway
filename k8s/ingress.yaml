@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: grpc-gateway-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
@@ -11,9 +11,9 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     kubernetes.io/ingress.class: nginx
 spec:
-  ingressClassName: nginx
   rules:
-  - http:
+  - host: nmost.site
+    http:
       paths:
       - path: /api/v1/news
         pathType: Prefix
