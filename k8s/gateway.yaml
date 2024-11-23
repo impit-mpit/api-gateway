@@ -44,7 +44,7 @@ spec:
         host: grpc-gateway
         port:
           number: 80
-      timeout: 3600s 
+    timeout: 3600s 
     corsPolicy:
       allowOrigins:
       - exact: "*"
