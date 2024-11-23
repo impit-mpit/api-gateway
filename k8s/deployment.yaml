@@ -12,10 +12,7 @@ spec:
       labels:
         app: grpc-gateway
       annotations:
-        sidecar.istio.io/inject: "false"
-        # proxy.istio.io/config: |
-        #   proxyMetadata:
-        #     ISTIO_META_HTTP_PROTOCOL: "http"
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - name: grpc-gateway
