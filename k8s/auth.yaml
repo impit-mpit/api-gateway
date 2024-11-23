@@ -16,19 +16,6 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: deny-all
-  namespace: nmost
-spec:
-  selector:
-    matchLabels:
-      app: grpc-gateway
-  action: DENY
-  rules:
-    - {}  
----
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
   name: grpc-auth-policy
   namespace: nmost
 spec:
