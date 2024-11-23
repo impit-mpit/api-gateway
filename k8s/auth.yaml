@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: grpc-gateway
   jwtRules:
-    - issuer: "https://auth-service.nmost.svc.cluster.local"
+    - issuer: "https://nmost.site/api/auth/v1/token"
       jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
       forwardOriginalToken: true
       audiences:
