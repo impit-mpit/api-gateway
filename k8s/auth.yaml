@@ -50,7 +50,6 @@ spec:
     - to:
         - operation:
             paths: ["/api/*"]
-            methods: ["GET"]
     - to:
         - operation:
             methods: ["OPTIONS"]
