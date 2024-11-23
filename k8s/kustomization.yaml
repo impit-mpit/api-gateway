@@ -6,4 +6,4 @@ resources:
 - auth.yaml
 images:
 - name: ghcr.io/impit-mpit/api-gateway-master
-  newTag: 2d610e4
+  newTag: eb2d942
