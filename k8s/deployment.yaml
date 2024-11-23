@@ -23,6 +23,8 @@ spec:
           value: "news-service:3001"
         - name: MEDIA_SERVICE
           value: "media-service:3001"
+        - name: AI_SERVICE
+          value: "ai-service:3001"
         resources:
           requests:
             cpu: "100m"

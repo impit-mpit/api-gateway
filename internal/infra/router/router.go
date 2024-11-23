@@ -48,4 +48,6 @@ func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts .
 	newsService.RegisterNewsService(ctx, mux, opts...)
 	mediaService := service.NewMediaService(r.cfg)
 	mediaService.RegisterMediaService(ctx, mux, opts...)
+	aiService := service.NewAIService(r.cfg)
+	aiService.RegisterAIService(ctx, mux, opts...)
 }
