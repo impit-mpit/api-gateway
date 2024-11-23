@@ -49,7 +49,7 @@ spec:
           values: ["admin"]
     - to:
         - operation:
-            paths: ["/api/*"]
+            paths: ["/*"]
     - to:
         - operation:
             methods: ["OPTIONS"]
