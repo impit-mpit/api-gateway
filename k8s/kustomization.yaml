@@ -5,4 +5,4 @@ resources:
 - gateway.yaml
 images:
 - name: ghcr.io/impit-mpit/api-gateway-master
-  newTag: f37992f
+  newTag: 27a1bf0
