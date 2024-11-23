@@ -4,6 +4,9 @@ metadata:
   name: jwt-auth
   namespace: nmost
 spec:
+  selector:
+    matchLabels:
+      app: grpc-gateway
   jwtRules:
     - issuer: "auth-service"
       jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
@@ -17,17 +20,30 @@ spec:
   selector:
     matchLabels:
       app: grpc-gateway
+  action: ALLOW
   rules:
     - from:
         - source:
             requestPrincipals: ["*"]
       to:
         - operation:
-            methods: ["POST"]
-            paths: ["/v1/news/"]
+            paths: ["/api/v1/news/*"]
       when:
         - key: request.auth.claims[roles]
           values: ["admin"]
     - to:
         - operation:
-            paths: ["/"]
+            paths: ["/swagger/*"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-all
+  namespace: nmost
+spec:
+  selector:
+    matchLabels:
+      app: grpc-gateway
+  action: DENY
+  rules:
+    - {}
