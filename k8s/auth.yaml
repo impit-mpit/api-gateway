@@ -24,27 +24,22 @@ spec:
       app: grpc-gateway
   action: ALLOW
   rules:
-    - from:
-        - source:
-            requestPrincipals: ["*"]
-      to:
-        - operation:
-            methods: ["POST"]
-            paths: ["/api/v1/news"]
-      when:
-        - key: request.auth.claims[roles]
-          values: ["admin"]
+    # Публичные GET запросы
     - to:
         - operation:
             methods: ["GET"]
-            paths: [
-              "/api/v1/news",
-              "/api/v1/news/*",
-              "/api/v1/media/*",
-              "/api/v1/ai/*",
-              "/api/v1/tags/*",
-              "/api/v1/category/*"
-            ]
+            paths: ["*"]
+    
+    # Административные операции (требуют JWT)
+    - to:
+        - operation:
+            methods: ["POST", "PUT", "DELETE"]
+      when:
+        - key: request.auth.claims[roles]
+          values: ["admin"]
+    
+    # CORS preflight requests
     - to:
         - operation:
             methods: ["OPTIONS"]
+  
