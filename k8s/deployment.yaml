@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: grpc-gateway
+      annotations:
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - name: grpc-gateway
