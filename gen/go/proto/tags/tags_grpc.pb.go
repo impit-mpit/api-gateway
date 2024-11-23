@@ -28,6 +28,7 @@ type TagsServiceClient interface {
 	UpdateTags(ctx context.Context, in *UpdateTagsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetTagsFeed(ctx context.Context, in *GetTagsFeedRequest, opts ...grpc.CallOption) (*GetTagsFeedResponse, error)
 	GetTagsById(ctx context.Context, in *GetTagsByIdRequest, opts ...grpc.CallOption) (*Tags, error)
+	GetTagsByCategory(ctx context.Context, in *GetTagsByCategoryRequest, opts ...grpc.CallOption) (*GetTagsByCategoryResponse, error)
 }
 
 type tagsServiceClient struct {
@@ -83,6 +84,15 @@ func (c *tagsServiceClient) GetTagsById(ctx context.Context, in *GetTagsByIdRequ
 	return out, nil
 }
 
+func (c *tagsServiceClient) GetTagsByCategory(ctx context.Context, in *GetTagsByCategoryRequest, opts ...grpc.CallOption) (*GetTagsByCategoryResponse, error) {
+	out := new(GetTagsByCategoryResponse)
+	err := c.cc.Invoke(ctx, "/tags.v1.TagsService/GetTagsByCategory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TagsServiceServer is the server API for TagsService service.
 // All implementations must embed UnimplementedTagsServiceServer
 // for forward compatibility
@@ -92,6 +102,7 @@ type TagsServiceServer interface {
 	UpdateTags(context.Context, *UpdateTagsRequest) (*emptypb.Empty, error)
 	GetTagsFeed(context.Context, *GetTagsFeedRequest) (*GetTagsFeedResponse, error)
 	GetTagsById(context.Context, *GetTagsByIdRequest) (*Tags, error)
+	GetTagsByCategory(context.Context, *GetTagsByCategoryRequest) (*GetTagsByCategoryResponse, error)
 	mustEmbedUnimplementedTagsServiceServer()
 }
 
@@ -113,6 +124,9 @@ func (UnimplementedTagsServiceServer) GetTagsFeed(context.Context, *GetTagsFeedR
 }
 func (UnimplementedTagsServiceServer) GetTagsById(context.Context, *GetTagsByIdRequest) (*Tags, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTagsById not implemented")
+}
+func (UnimplementedTagsServiceServer) GetTagsByCategory(context.Context, *GetTagsByCategoryRequest) (*GetTagsByCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTagsByCategory not implemented")
 }
 func (UnimplementedTagsServiceServer) mustEmbedUnimplementedTagsServiceServer() {}
 
@@ -217,6 +231,24 @@ func _TagsService_GetTagsById_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TagsService_GetTagsByCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTagsByCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagsServiceServer).GetTagsByCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tags.v1.TagsService/GetTagsByCategory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagsServiceServer).GetTagsByCategory(ctx, req.(*GetTagsByCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TagsService_ServiceDesc is the grpc.ServiceDesc for TagsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -243,6 +275,10 @@ var TagsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTagsById",
 			Handler:    _TagsService_GetTagsById_Handler,
+		},
+		{
+			MethodName: "GetTagsByCategory",
+			Handler:    _TagsService_GetTagsByCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

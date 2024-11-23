@@ -5,13 +5,9 @@ import (
 	"net/http"
 	"neuro-most/api-gateway/config"
 	"neuro-most/api-gateway/internal/adapters/service"
-	"neuro-most/api-gateway/internal/utils"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type Router struct {
@@ -31,42 +27,7 @@ type HTTPError struct {
 
 func (r Router) Listen() {
 	ctx := context.Background()
-	mux := runtime.NewServeMux(
-		runtime.WithMetadata(func(ctx context.Context, req *http.Request) metadata.MD {
-			md := make(map[string]string)
-			if auth := req.Header.Get("Authorization"); auth != "" {
-				md["authorization"] = auth
-			}
-			return metadata.New(md)
-		}),
-		// Дефолтный JSON маршалер для обычных запросов
-		runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
-			MarshalOptions: protojson.MarshalOptions{
-				UseProtoNames: true,
-			},
-			UnmarshalOptions: protojson.UnmarshalOptions{
-				DiscardUnknown: true,
-			},
-		}),
-		// SSE маршалер только для streaming endpoints
-		runtime.WithMarshalerOption("text/event-stream", utils.NewSSEMarshaler()),
-		// Настройка заголовков только для streaming ответов
-		runtime.WithForwardResponseOption(func(ctx context.Context, w http.ResponseWriter, resp protoreflect.ProtoMessage) error {
-			// Проверяем, является ли это streaming ответом
-			if _, ok := resp.(interface{ GetMessage() string }); ok &&
-				w.Header().Get("Content-Type") == "text/event-stream" {
-				w.Header().Set("Cache-Control", "no-cache")
-				w.Header().Set("Connection", "keep-alive")
-				w.Header().Set("Access-Control-Allow-Origin", "*")
-
-				flusher, ok := w.(http.Flusher)
-				if ok {
-					flusher.Flush()
-				}
-			}
-			return nil
-		}),
-	)
+	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	r.SetupServices(ctx, mux, opts...)
 
