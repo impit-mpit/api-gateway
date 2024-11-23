@@ -44,8 +44,7 @@ spec:
         host: grpc-gateway
         port:
           number: 80
-      timeout: 3600s  # Увеличиваем общий таймаут
-    websocketUpgrade: true  # Включаем поддержку WebSocket
+      timeout: 3600s 
     corsPolicy:
       allowOrigins:
       - exact: "*"
