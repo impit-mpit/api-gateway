@@ -52,4 +52,6 @@ func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts .
 	aiService.RegisterAIService(ctx, mux, opts...)
 	tagService := service.NewTagsService(r.cfg)
 	tagService.RegisterTagsService(ctx, mux, opts...)
+	categoryService := service.NewCategoryService(r.cfg)
+	categoryService.RegisterCategoryService(ctx, mux, opts...)
 }

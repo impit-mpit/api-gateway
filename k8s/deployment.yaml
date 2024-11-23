@@ -27,6 +27,8 @@ spec:
           value: "ai-service:3001"
         - name: TAGS_SERVICE
           value: "tags-service:3001"
+        - name: CATEGORY_SERVICE
+          value: "category-service:3001"
         resources:
           requests:
             cpu: "100m"
