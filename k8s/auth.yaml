@@ -37,22 +37,19 @@ spec:
       app: grpc-gateway
   action: ALLOW
   rules:
-    # Разрешаем доступ к API с JWT и ролью admin
     - from:
         - source:
             requestPrincipals: ["*"]
-      to:
-        - operation:
-            paths: ["/api/v1/news/*"]
-      when:
-        - key: request.auth.claims[roles]
-          values: ["admin"]
-    # Разрешаем доступ к Swagger без аутентификации
+      # to:
+      #   - operation:
+      #       paths: ["/api/v1/news/*"]
+      # when:
+      #   - key: request.auth.claims[roles]
+      #     values: ["admin"]
     - to:
         - operation:
-            paths: ["/swagger/*", "/swagger.json"]
+            paths: ["/api/*"]
             methods: ["GET"]
-    # Разрешаем OPTIONS запросы для CORS
     - to:
         - operation:
             methods: ["OPTIONS"]
