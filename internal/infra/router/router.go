@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"neuro-most/api-gateway/config"
 	"neuro-most/api-gateway/internal/adapters/service"
+	"neuro-most/api-gateway/internal/utils"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -36,6 +37,7 @@ func (r Router) Listen() {
 			}
 			return metadata.New(md)
 		}),
+		runtime.WithMarshalerOption(runtime.MIMEWildcard, utils.NewSSEMarshaler()),
 	)
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	r.SetupServices(ctx, mux, opts...)
