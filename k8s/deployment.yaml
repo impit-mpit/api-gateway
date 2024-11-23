@@ -16,7 +16,7 @@ spec:
         sidecar.istio.io/inject: "true"
         proxy.istio.io/config: |
           proxyMetadata:
-            ISTIO_META_HTTP_PROTOCOL: http
+            ISTIO_META_HTTP_PROTOCOL: "grpc"
     spec:
       containers:
       - name: grpc-gateway
