@@ -20,5 +20,5 @@ func NewCategoryService(cfg config.Config) CategoryService {
 }
 
 func (s CategoryService) RegisterCategoryService(ctx context.Context, mux *runtime.ServeMux, opts ...grpc.DialOption) {
-	categoryv1.RegisterCategoryServiceHandlerFromEndpoint(ctx, mux, s.cfg.AIService, opts)
+	categoryv1.RegisterCategoryServiceHandlerFromEndpoint(ctx, mux, s.cfg.CategoryService, opts)
 }
