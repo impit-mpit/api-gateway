@@ -11,19 +11,18 @@ spec:
     metadata:
       labels:
         app: grpc-gateway
-        version: v1
       annotations:
-        sidecar.istio.io/inject: "true"
-        proxy.istio.io/config: |
-          proxyMetadata:
-            ISTIO_META_HTTP_PROTOCOL: "http"
+        sidecar.istio.io/inject: "false"
+        # proxy.istio.io/config: |
+        #   proxyMetadata:
+        #     ISTIO_META_HTTP_PROTOCOL: "http"
     spec:
       containers:
       - name: grpc-gateway
         image: ghcr.io/impit-mpit/api-gateway-master:latest
         ports:
         - containerPort: 8080
-          name: grpc
+          name: http
         env:
         - name: NEWS_SERVICE
           value: "news-service:3001"
