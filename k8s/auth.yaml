@@ -24,6 +24,9 @@ spec:
       app: grpc-gateway
   action: ALLOW
   rules:
+    - from:
+        - source:
+            namespaces: ["nmost"]
     # Публичные GET запросы
     - to:
         - operation:
