@@ -37,6 +37,7 @@ spec:
     - to:
         - operation:
             methods: ["POST", "PUT", "DELETE"]
+            paths: ["/api/admin/*"]
       when:
         - key: request.auth.claims[roles]
           values: ["admin"]
