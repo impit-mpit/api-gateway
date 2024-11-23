@@ -36,6 +36,8 @@ spec:
           value: "tags-service:3001"
         - name: CATEGORY_SERVICE
           value: "category-service:3001"
+        - name: AUTH_SERVICE
+          value: "auth-service-grpc:3001"
         resources:
           requests:
             cpu: "100m"

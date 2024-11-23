@@ -10,6 +10,7 @@ type Config struct {
 	AIService       string `env:"AI_SERVICE" env-default:"localhost:50053"`
 	TagsService     string `env:"TAGS_SERVICE" env-default:"localhost:50054"`
 	CategoryService string `env:"CATEGORY_SERVICE" env-default:"localhost:50055"`
+	AuthService     string `env:"AUTH_SERVICE" env-default:"localhost:50056"`
 }
 
 func NewLoadConfig() (Config, error) {
