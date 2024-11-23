@@ -30,16 +30,17 @@ spec:
     # Публичные GET запросы
     - to:
         - operation:
-            methods: ["GET"]
+            methods: ["GET", "POST"]
             paths: ["*"]
     
     # Административные операции (требуют JWT)
-    - to:
-        - operation:
-            paths: ["/api/admin/*"]
-      when:
-        - key: request.auth.claims[roles]
-          values: ["admin"]
+    # - to:
+    #     - operation:
+    #         methods: ["POST", "PUT", "DELETE"]
+    #         paths: ["/api/admin/*"]
+    #   when:
+    #     - key: request.auth.claims[roles]
+    #       values: ["admin"]
     
     # CORS preflight requests
     - to:
