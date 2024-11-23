@@ -50,4 +50,6 @@ func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts .
 	mediaService.RegisterMediaService(ctx, mux, opts...)
 	aiService := service.NewAIService(r.cfg)
 	aiService.RegisterAIService(ctx, mux, opts...)
+	tagService := service.NewTagsService(r.cfg)
+	tagService.RegisterTagsService(ctx, mux, opts...)
 }

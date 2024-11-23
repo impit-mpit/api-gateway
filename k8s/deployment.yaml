@@ -25,6 +25,8 @@ spec:
           value: "media-service:3001"
         - name: AI_SERVICE
           value: "ai-service:3001"
+        - name: TAGS_SERVICE
+          value: "tags-service:3001"
         resources:
           requests:
             cpu: "100m"
