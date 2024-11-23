@@ -49,7 +49,15 @@ spec:
           values: ["admin"]
     - to:
         - operation:
-            paths: ["/*"]
+            methods: ["GET"]
+            paths: [
+              "/api/v1/news",
+              "/api/v1/news/*",
+              "/api/v1/media/*",
+              "/api/v1/ai/*",
+              "/api/v1/tags/*",
+              "/api/v1/category/*"
+            ]
     - to:
         - operation:
             methods: ["OPTIONS"]
