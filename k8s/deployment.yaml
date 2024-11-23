@@ -13,6 +13,11 @@ spec:
         app: grpc-gateway
       annotations:
         sidecar.istio.io/inject: "true"
+        traffic.sidecar.istio.io/includeInboundPorts: "8080"  # Только входящий трафик на порт 8080
+        traffic.sidecar.istio.io/excludeOutboundPorts: "3001"  # Исключаем исходящий трафик к микросервисам
+        proxy.istio.io/config: |
+          proxyMetadata:
+            ISTIO_META_HTTP_PROTOCOL: "http"
     spec:
       containers:
       - name: grpc-gateway
