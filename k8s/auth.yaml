@@ -40,12 +40,13 @@ spec:
     - from:
         - source:
             requestPrincipals: ["*"]
-      # to:
-      #   - operation:
-      #       paths: ["/api/v1/news/*"]
-      # when:
-      #   - key: request.auth.claims[roles]
-      #     values: ["admin"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/api/v1/news"]
+      when:
+        - key: request.auth.claims[roles]
+          values: ["admin"]
     - to:
         - operation:
             paths: ["/api/*"]
