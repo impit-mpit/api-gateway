@@ -11,30 +11,7 @@ spec:
     - issuer: "auth-service"
       jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
       forwardOriginalToken: true
----
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: grpc-auth-policy
-  namespace: nmost
-spec:
-  selector:
-    matchLabels:
-      app: grpc-gateway
-  action: ALLOW
-  rules:
-    - from:
-        - source:
-            requestPrincipals: ["*"]
-      to:
-        - operation:
-            paths: ["/api/v1/news/*"]
-      when:
-        - key: request.auth.claims[roles]
-          values: ["admin"]
-    - to:
-        - operation:
-            paths: ["/swagger/*"]
+
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
@@ -47,4 +24,35 @@ spec:
       app: grpc-gateway
   action: DENY
   rules:
-    - {}
+    - {}  
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: grpc-auth-policy
+  namespace: nmost
+spec:
+  selector:
+    matchLabels:
+      app: grpc-gateway
+  action: ALLOW
+  rules:
+    # Разрешаем доступ к API с JWT и ролью admin
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            paths: ["/api/v1/news/*"]
+      when:
+        - key: request.auth.claims[roles]
+          values: ["admin"]
+    # Разрешаем доступ к Swagger без аутентификации
+    - to:
+        - operation:
+            paths: ["/swagger/*", "/swagger.json"]
+            methods: ["GET"]
+    # Разрешаем OPTIONS запросы для CORS
+    - to:
+        - operation:
+            methods: ["OPTIONS"]
