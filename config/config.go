@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
-	NewsService string `env:"NEWS_SERVICE" env-default:"localhost:50051"`
+	NewsService  string `env:"NEWS_SERVICE" env-default:"localhost:50051"`
+	MediaService string `env:"MEDIA_SERVICE" env-default:"localhost:50052"`
 }
 
 func NewLoadConfig() (Config, error) {

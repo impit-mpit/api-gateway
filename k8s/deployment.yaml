@@ -21,6 +21,8 @@ spec:
         env:
         - name: NEWS_SERVICE
           value: "news-service:3001"
+        - name: MEDIA_SERVICE
+          value: "media-service:3001"
         resources:
           requests:
             cpu: "100m"

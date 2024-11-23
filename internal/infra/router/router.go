@@ -46,4 +46,6 @@ func (r Router) Listen() {
 func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts ...grpc.DialOption) {
 	newsService := service.NewNewsService(r.cfg)
 	newsService.RegisterNewsService(ctx, mux, opts...)
+	mediaService := service.NewMediaService(r.cfg)
+	mediaService.RegisterMediaService(ctx, mux, opts...)
 }
