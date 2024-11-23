@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"neuro-most/api-gateway/config"
+	authv1 "neuro-most/api-gateway/gen/go/proto/auth/v1"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
