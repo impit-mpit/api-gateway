@@ -9,6 +9,7 @@ metadata:
     # nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
     # nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     kubernetes.io/ingress.class: nginx
 spec:
   tls:
@@ -19,14 +20,7 @@ spec:
   - host: nmost.site
     http:
       paths:
-      - path: /v1/news
-        pathType: Prefix
-        backend:
-          service:
-            name: grpc-gateway
-            port:
-              number: 80
-      - path: /v1/auth
+      - path: /api(/|$)(.*)
         pathType: Prefix
         backend:
           service:
