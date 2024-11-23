@@ -5,4 +5,4 @@ resources:
 - ingress.yaml
 images:
 - name: ghcr.io/impit-mpit/api-gateway-master
-  newTag: 912e8ff
+  newTag: e5b56c4
