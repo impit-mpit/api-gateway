@@ -8,9 +8,14 @@ spec:
     matchLabels:
       app: grpc-gateway
   jwtRules:
-    - issuer: "auth-service"
+    - issuer: "https://auth-service.nmost.svc.cluster.local"
       jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
       forwardOriginalToken: true
+      audiences:
+        - "grpc-gateway"
+      fromHeaders:
+        - name: Authorization
+          prefix: "Bearer "
 
 ---
 apiVersion: security.istio.io/v1beta1
