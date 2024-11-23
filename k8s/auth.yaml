@@ -6,7 +6,7 @@ metadata:
 spec:
   jwtRules:
     - issuer: "auth-service"
-      jwksUri: "http://auth-service/auth/jwks"
+      jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
