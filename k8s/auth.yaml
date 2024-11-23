@@ -10,6 +10,7 @@ spec:
   jwtRules:
     - issuer: "auth-service"
       jwksUri: "http://auth-service.nmost.svc.cluster.local:8080/jwts"
+      forwardOriginalToken: true
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
