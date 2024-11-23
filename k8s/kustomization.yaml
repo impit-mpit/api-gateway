@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - gateway.yaml
+- auth.yaml
 images:
 - name: ghcr.io/impit-mpit/api-gateway-master
   newTag: effd56c

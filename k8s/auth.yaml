@@ -1,0 +1,33 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-auth
+  namespace: nmost
+spec:
+  jwtRules:
+    - issuer: "auth-service"
+      jwksUri: "http://auth-service/auth/jwks"
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: grpc-auth-policy
+  namespace: nmost
+spec:
+  selector:
+    matchLabels:
+      app: grpc-gateway
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            methods: ["POST"]
+            paths: ["/v1/news/"]
+      when:
+        - key: request.auth.claims[roles]
+          values: ["admin"]
+    - to:
+        - operation:
+            paths: ["/"]
