@@ -47,4 +47,6 @@ func (r Router) SetupServices(ctx context.Context, mux *runtime.ServeMux, opts .
 	categoryService.RegisterCategoryService(ctx, mux, opts...)
 	authService := service.NewAuthService(r.cfg)
 	authService.RegisterAuthService(ctx, mux, opts...)
+	specService := service.NewSpecialistService(r.cfg)
+	specService.RegisterSpecialistService(ctx, mux, opts...)
 }

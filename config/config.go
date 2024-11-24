@@ -5,12 +5,13 @@ import (
 )
 
 type Config struct {
-	NewsService     string `env:"NEWS_SERVICE" env-default:"localhost:50051"`
-	MediaService    string `env:"MEDIA_SERVICE" env-default:"localhost:50052"`
-	AIService       string `env:"AI_SERVICE" env-default:"localhost:50053"`
-	TagsService     string `env:"TAGS_SERVICE" env-default:"localhost:50054"`
-	CategoryService string `env:"CATEGORY_SERVICE" env-default:"localhost:50055"`
-	AuthService     string `env:"AUTH_SERVICE" env-default:"localhost:50056"`
+	NewsService       string `env:"NEWS_SERVICE" env-default:"localhost:50051"`
+	MediaService      string `env:"MEDIA_SERVICE" env-default:"localhost:50052"`
+	AIService         string `env:"AI_SERVICE" env-default:"localhost:50053"`
+	TagsService       string `env:"TAGS_SERVICE" env-default:"localhost:50054"`
+	CategoryService   string `env:"CATEGORY_SERVICE" env-default:"localhost:50055"`
+	AuthService       string `env:"AUTH_SERVICE" env-default:"localhost:50056"`
+	SpecialistService string `env:"SPECIALIST_SERVICE" env-default:"localhost:50057"`
 }
 
 func NewLoadConfig() (Config, error) {
